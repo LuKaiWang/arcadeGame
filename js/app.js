@@ -2,8 +2,8 @@
 var Enemy = function() {
   // 要应用到每个敌人的实例的变量写在这里
   // 我们已经提供了一个来帮助你实现更多
-  this.x = 101 + Math.random() * 400;
-  this.y = Math.random() * 160;
+  this.x = 0;
+  this.y = 60 + 80 * Math.round(Math.random() * 2);
   // 敌人的图片或者雪碧图，用一个我们提供的工具函数来轻松的加载文件
   this.sprite = 'images/enemy-bug.png';
 };
