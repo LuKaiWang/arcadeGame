@@ -64,8 +64,8 @@ var Engine = (function(global) {
    * 注释了，你可以在这里实现，也可以在 app.js 对应的角色类里面实现。
    */
   function update(dt) {
-    //updateEntities(dt);
-    // checkCollisions();
+    updateEntities(dt);
+    checkCollisions();
   }
 
   /* 这个函数会遍历在 app.js 定义的存放所有敌人实例的数组，并且调用他们的 update()
@@ -79,6 +79,15 @@ var Engine = (function(global) {
     player.update();
   }
 
+  /* 这个函数会遍历在 app.js 定义的存放所有敌人实例的数组，并检查他们的位置，是否
+   * 和玩家位置碰撞，如果碰撞，则游戏重新开始。
+   */
+  function checkCollisions() {
+    allEnemies.forEach(function(enemy) {
+      if (player.x >= enemy.x - 35 && player.x <= (enemy.x + 66) && player.y >= (enemy.y - 83) && player.y <= (enemy.y))
+        setTimeout(alert("撞了！"), 500);
+    });
+  }
   /* 这个函数做了一些游戏的初始渲染，然后调用 renderEntities 函数。记住，这个函数
    * 在每个游戏的时间间隙都会被调用一次（或者说游戏引擎的每个循环），因为这就是游戏
    * 怎么工作的，他们就像是那种每一页上都画着不同画儿的书，快速翻动的时候就会出现是
@@ -120,7 +129,6 @@ var Engine = (function(global) {
     allEnemies.forEach(function(enemy) {
       enemy.render();
     });
-
     player.render();
   }
 
