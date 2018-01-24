@@ -27,13 +27,18 @@ Enemy.prototype.render = function() {
 // 现在实现你自己的玩家类
 // 这个类需要一个 update() 函数， render() 函数和一个 handleInput()函数
 var playerClass = function() { //玩家类
-  this.x = 202;
+  this.x = 202; //玩家坐标，初始位置为最下一行草地中间位置
   this.y = 378;
   this.sprite = 'images/char-boy.png';
 }
 
 playerClass.prototype.update = function() {
 
+}
+
+playerClass.prototype.reset = function() {
+  this.x = 202;
+  this.y = 378;
 }
 
 playerClass.prototype.render = function() {
@@ -56,10 +61,7 @@ playerClass.prototype.handleInput = function(keys) {
       if (this.y > 0) { //防止上出界
         this.y -= 84;
         if (this.y <= 0) {
-          this.y = -171; //隐藏玩家
-          alert("恭喜！");
-          //Todo:重置游戏
-          Resources.onReady(init);
+          this.reset();
         }
       }
       break;
@@ -77,10 +79,10 @@ playerClass.prototype.handleInput = function(keys) {
 // 把所有敌人的对象都放进一个叫 allEnemies 的数组里面
 // 把玩家对象放进一个叫 player 的变量里面
 let allEnemies = [];
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 8; i++) { //添加8个敌人
   allEnemies.push(new Enemy());
 }
-let player = new playerClass();
+let player = new playerClass(); //实例化玩家
 
 // 这段代码监听游戏玩家的键盘点击事件并且代表将按键的关键数字送到 Play.handleInput()
 // 方法里面。你不需要再更改这段代码了。

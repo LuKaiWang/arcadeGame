@@ -84,8 +84,9 @@ var Engine = (function(global) {
    */
   function checkCollisions() {
     allEnemies.forEach(function(enemy) {
+      //如果玩家x，y坐标在敌人[x-35,x+66],[y-83,y]范围内，则玩家与敌人碰撞，数值由游戏测试得出
       if (player.x >= enemy.x - 35 && player.x <= (enemy.x + 66) && player.y >= (enemy.y - 83) && player.y <= (enemy.y))
-        setTimeout(alert("撞了！"), 500);
+        player.reset();
     });
   }
   /* 这个函数做了一些游戏的初始渲染，然后调用 renderEntities 函数。记住，这个函数
