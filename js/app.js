@@ -1,10 +1,13 @@
 // 这是我们的玩家要躲避的敌人
+let CELL_WIDTH = 101; //水平单元格宽度
+let ENEMY_NUM = 6; //敌人数量
+
 var Enemy = function() {
   // 要应用到每个敌人的实例的变量写在这里
   // 我们已经提供了一个来帮助你实现更多
-  this.x = -101 + Math.round(Math.random() * 505); //随机设置起始X位置
+  this.x = -CELL_WIDTH + Math.round(Math.random() * 505); //随机设置起始X位置
   this.y = 60 + 83 * Math.round(Math.random() * 2); //设置起始Y位置，随机分布于三条石头道路上
-  this.v = Math.random() * 500; //移动速度
+  this.v = Math.random() * 300 + 100; //移动速度
   // 敌人的图片或者雪碧图，用一个我们提供的工具函数来轻松的加载文件
   this.sprite = 'images/enemy-bug.png';
 };
@@ -14,7 +17,7 @@ var Enemy = function() {
 Enemy.prototype.update = function(dt) {
   this.x += dt * this.v; //设置敌人新x位置，
   if (this.x > 600) { //如果出界，则返回起始位置
-    this.x = -101;
+    this.x = -CELL_WIDTH;
   }
   // 你应该给每一次的移动都乘以 dt 参数，以此来保证游戏在所有的电脑上
   // 都是以同样的速度运行的
@@ -40,7 +43,7 @@ playerClass.prototype.update = function() {
 
 //重设玩家位置为最下面一行草地
 playerClass.prototype.reset = function() {
-  this.x = 101 * Math.round(Math.random() * 4);
+  this.x = CELL_WIDTH * Math.round(Math.random() * 4);
   this.y = 378;
 }
 
@@ -53,12 +56,12 @@ playerClass.prototype.handleInput = function(keys) {
   switch (keys) { //玩家类上下左右移动
     case 'left':
       if (this.x != 0) { //防止左出界
-        this.x -= 101;
+        this.x -= CELL_WIDTH;
       }
       break;
     case 'right':
       if (this.x < 404) { //防止右出界
-        this.x += 101;
+        this.x += CELL_WIDTH;
       }
       break;
     case 'up':
@@ -83,7 +86,7 @@ playerClass.prototype.handleInput = function(keys) {
 // 把所有敌人的对象都放进一个叫 allEnemies 的数组里面
 // 把玩家对象放进一个叫 player 的变量里面
 let allEnemies = [];
-for (let i = 0; i < 6; i++) { //添加8个敌人
+for (let i = 0; i < ENEMY_NUM; i++) { //添加8个敌人
   allEnemies.push(new Enemy());
 }
 let player = new playerClass(); //实例化玩家
